@@ -10,8 +10,12 @@
     "test": "standard && jest"
   },
   "dependencies": {
+    "aes-js": "^3.1.0",
     "babel-preset-env": "^1.6.0",
+    "bcryptjs": "^2.4.3",
+    "bitcoinjs-lib": "^3.1.1",
     "next": "^2.4.7",
+    "randombytes": "^2.0.5",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "standard": "^10.0.2"
