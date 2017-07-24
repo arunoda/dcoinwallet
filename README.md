@@ -1,3 +1,3 @@
 # DCoinWallet
 
-"The Bitcoin Wallet" for power users.
+"A Bitcoin Wallet" for power users.
