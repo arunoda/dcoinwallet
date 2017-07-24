@@ -1,0 +1,27 @@
+{
+  "name": "dcoinwallet",
+  "version": "0.0.0",
+  "repository": "https://github.com/arunoda/dcoinwallet.git",
+  "author": "Arunoda Susiripala <arunoda.susiripala@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "standard",
+    "testonly": "jest",
+    "test": "standard && jest"
+  },
+  "dependencies": {
+    "babel-preset-env": "^1.6.0",
+    "next": "^2.4.7",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "standard": "^10.0.2"
+  },
+  "devDependencies": {
+    "babel-jest": "^20.0.3",
+    "jest": "^20.0.4",
+    "regenerator-runtime": "^0.10.5"
+  },
+  "engines": {
+    "node": "8.x.x"
+  }
+}
