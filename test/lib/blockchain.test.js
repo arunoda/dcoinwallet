@@ -3,10 +3,10 @@
 import Blockchain from '../../lib/blockchain'
 
 describe('Blockchain', () => {
-  describe('getTransactions', () => {
+  describe('fetchTransaction', () => {
     it('should get transactions for a given address', async () => {
       const chain = new Blockchain('testnet', [])
-      const transactions = await chain.getTransactions('mgAdp2rShLktCWw2cNELyGBaWqu2Ms1G3u')
+      const transactions = await chain.fetchTransaction('mgAdp2rShLktCWw2cNELyGBaWqu2Ms1G3u')
 
       expect(transactions[0]).toEqual({
         hash: 'df08e105021fdaf3e2f7859a2af7f45cfe1816b4d685125f3c56b2ff7af195b7',
