@@ -12,7 +12,8 @@ describe('Keyfile', () => {
         keyCount: 2
       })
       expect(payload.addresses.length).toBe(2)
-      expect(typeof payload.encryptedKeyPairs).toBe('string')
+      expect(typeof payload.keyPairs.encrypted).toBe('string')
+      expect(typeof payload.keyPairs.hash).toBe('string')
       expect(typeof payload.salt).toBe('string')
     })
   })
@@ -54,6 +55,36 @@ describe('Keyfile', () => {
 
         expect(keyfile.getAddress()).toBe(null)
       })
+    })
+  })
+
+  describe('getKey', () => {
+    const payload = Keyfile.create('password', {
+      keyCount: 2,
+      allowReuse: false
+    })
+
+    it('should decrypt and get the relevant key', () => {
+      const keyfile = Keyfile.import(payload)
+      const address = keyfile.getAddress()
+      const key = keyfile.getKey('password', address)
+
+      expect(key.getAddress()).toBe(address)
+    })
+
+    it('should return null if there is no key for the address', () => {
+      const keyfile = Keyfile.import(payload)
+      const key = keyfile.getKey('password', 'fake-address')
+
+      expect(key).toBe(null)
+    })
+
+    it('should throw if the password is incorrect', () => {
+      const keyfile = Keyfile.import(payload)
+      const address = keyfile.getAddress()
+      const run = () => keyfile.getKey('wrong-password', address)
+
+      expect(run).toThrow(/Incorrect password/)
     })
   })
 })
