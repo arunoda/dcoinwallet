@@ -47,11 +47,77 @@ describe('Blockchain', () => {
       await chain.sync()
 
       // It should merge with the ordering block.height with desc. order.
-      expect(chain.transactions).toEqual([
+      expect(Array.from(chain.transactions)).toEqual([
         { hash: `add2-t2`, block: { hash: 'b', height: 1 } },
         { hash: `add2-t1`, block: { hash: 'a', height: 2 } },
         { hash: `add1-t2`, block: { hash: 'b', height: 3 } },
         { hash: `add1-t1`, block: { hash: 'a', height: 4 } }
+      ])
+    })
+  })
+
+  describe('buildCoins', () => {
+    it('should collect all the coins for own addresses', () => {
+      const chain = new Blockchain('testnet', ['add1', 'add2'])
+      chain.transactions = new Set([
+        {
+          hash: 'h1',
+          inputs: [],
+          outputs: [
+            { address: 'add1', value: 200 },
+            { address: 'add10', value: 200 }
+          ]
+        },
+        {
+          hash: 'h2',
+          inputs: [],
+          outputs: [
+            { address: 'add1', value: 10 },
+            { address: 'add2', value: 20 }
+          ]
+        }
+      ])
+
+      chain.buildCoins()
+
+      expect(chain.coins).toEqual([
+        { transaction: 'h1', index: 0, value: 200, address: 'add1' },
+        { transaction: 'h2', index: 0, value: 10, address: 'add1' },
+        { transaction: 'h2', index: 1, value: 20, address: 'add2' }
+      ])
+    })
+
+    it('should remove spent coins', () => {
+      const chain = new Blockchain('testnet', ['add1', 'add2'])
+      chain.transactions = new Set([
+        {
+          hash: 'h1',
+          inputs: [
+            { output: { transaction: 'kkr', index: 1 } }
+          ],
+          outputs: [
+            { address: 'add1', value: 200 },
+            { address: 'add10', value: 200 }
+          ]
+        },
+        {
+          hash: 'h2',
+          inputs: [
+            { output: { transaction: 'h1',
+              index: 0 } }
+          ],
+          outputs: [
+            { address: 'add1', value: 10 },
+            { address: 'add2', value: 20 }
+          ]
+        }
+      ])
+
+      chain.buildCoins()
+
+      expect(chain.coins).toEqual([
+        { transaction: 'h2', index: 0, value: 10, address: 'add1' },
+        { transaction: 'h2', index: 1, value: 20, address: 'add2' }
       ])
     })
   })
