@@ -32,4 +32,27 @@ describe('Blockchain', () => {
       })
     })
   })
+
+  describe('sync', () => {
+    it('should merge all transactions from all addresses', async () => {
+      const chain = new Blockchain('testnet', ['add1', 'add2'])
+      let id = 4
+      chain.fetchTransaction = async function (address) {
+        return [
+          { hash: `${address}-t1`, block: { hash: 'a', height: id-- } },
+          { hash: `${address}-t2`, block: { hash: 'b', height: id-- } }
+        ]
+      }
+
+      await chain.sync()
+
+      // It should merge with the ordering block.height with desc. order.
+      expect(chain.transactions).toEqual([
+        { hash: `add2-t2`, block: { hash: 'b', height: 1 } },
+        { hash: `add2-t1`, block: { hash: 'a', height: 2 } },
+        { hash: `add1-t2`, block: { hash: 'b', height: 3 } },
+        { hash: `add1-t1`, block: { hash: 'a', height: 4 } }
+      ])
+    })
+  })
 })
