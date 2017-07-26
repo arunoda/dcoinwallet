@@ -47,7 +47,7 @@ describe('Blockchain', () => {
       await chain.sync()
 
       // It should merge with the ordering block.height with desc. order.
-      expect(Array.from(chain.transactions)).toEqual([
+      expect(chain.getTransactions()).toEqual([
         { hash: `add2-t2`, block: { hash: 'b', height: 1 } },
         { hash: `add2-t1`, block: { hash: 'a', height: 2 } },
         { hash: `add1-t2`, block: { hash: 'b', height: 3 } },
@@ -80,7 +80,7 @@ describe('Blockchain', () => {
 
       chain.buildCoins()
 
-      expect(chain.coins).toEqual([
+      expect(chain.getCoins()).toEqual([
         { transaction: 'h1', index: 0, value: 200, address: 'add1' },
         { transaction: 'h2', index: 0, value: 10, address: 'add1' },
         { transaction: 'h2', index: 1, value: 20, address: 'add2' }
@@ -115,7 +115,7 @@ describe('Blockchain', () => {
 
       chain.buildCoins()
 
-      expect(chain.coins).toEqual([
+      expect(chain.getCoins()).toEqual([
         { transaction: 'h2', index: 0, value: 10, address: 'add1' },
         { transaction: 'h2', index: 1, value: 20, address: 'add2' }
       ])
