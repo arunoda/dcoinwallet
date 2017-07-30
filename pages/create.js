@@ -1,5 +1,6 @@
 /* global window */
 import React from 'react'
+import Link from 'next/link'
 import Keyfile from '../lib/keyfile'
 
 export default class Create extends React.Component {
@@ -8,9 +9,15 @@ export default class Create extends React.Component {
   submit (e) {
     e.preventDefault()
     const password = this.password.value
+    const password2 = this.password2.value
     const keyCount = parseInt(this.keyCount.value)
     const network = this.network.value
     const allowReuse = this.reuseKeys.value === 'true'
+
+    if (password !== password2) {
+      window.alert('Both passwords are not the same.')
+      return
+    }
 
     if (password === '') {
       window.alert('Enter a password for your wallet.')
@@ -75,11 +82,34 @@ export default class Create extends React.Component {
           Make sure to keep them <b>safe</b> and <b>recoverable</b>. <br />
           There's no way to <b>recover</b> or <b>reset</b>.
         </div>
+        <div className='next'>
+          <h3>What Next?</h3>
+          <div className='link'>
+            <Link href='/login'><a>Login to your Wallet</a></Link>
+          </div>
+          <div className='link'>
+            <Link href='/'><a>Go Home</a></Link>
+          </div>
+        </div>
         <style jsx>{`
-          .download a {
+          a {
             color: #2196F3;
             text-decoration: none;
             border-bottom: 1px solid #2196F3;
+          }
+
+          .download {
+            padding: 10px;
+            border: 2px solid #388E3C;
+            max-width: 550px;
+            background-color: #4CAF50;
+            color: #FFF;
+          }
+
+          .download a {
+            color: #FFF;
+            font-weight: 600;
+            border-bottom: 1px solid #FFF;
           }
 
           .warning {
@@ -89,6 +119,27 @@ export default class Create extends React.Component {
             background-color: #FFECB3;
             padding: 10px;
             font-size: 13px;
+          }
+
+          .next {
+            margin: 30px 0 0 0;
+          }
+
+          .next h3 {
+            font-size: 18px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0;
+            margin: 0 0 10px 0;
+          }
+
+          .next a {
+            border-bottom: 0;
+          }
+
+          .next .link {
+            margin: 5px 0;
           }
         `}</style>
       </div>
@@ -110,12 +161,24 @@ export default class Create extends React.Component {
             ref={(r) => { this.password = r }}
           />
         </div>
+        <div className='input password2'>
+          <div className='label'>Re-Type Password</div>
+          <div className='description'>
+            Make sure you typed the password correctly.
+          </div>
+          <input
+            className='input-item'
+            type='password'
+            tabIndex='2'
+            ref={(r) => { this.password2 = r }}
+          />
+        </div>
         <div className='input network'>
           <div className='label'>Network</div>
           <div className='description'>Select the Bitcoin <a href='https://bitcoin.stackexchange.com/q/7908' target='_blank'>network</a> you want to use.</div>
           <select
             className='input-item'
-            tabIndex='2'
+            tabIndex='3'
             ref={(r) => { this.network = r }}
             onChange={(e) => this.networkChanged(e)}
           >
@@ -130,7 +193,7 @@ export default class Create extends React.Component {
             className='input-item'
             type='text'
             defaultValue='10'
-            tabIndex='3'
+            tabIndex='4'
             ref={(r) => { this.keyCount = r }}
           />
         </div>
@@ -139,7 +202,7 @@ export default class Create extends React.Component {
           <div className='description'>Allow to reuse addresses in different transactions. <a href='#'>Learn More</a></div>
           <select
             className='input-item'
-            tabIndex='4'
+            tabIndex='5'
             ref={(r) => { this.reuseKeys = r }}
           >
             <option value='true'>Yes</option>
@@ -147,7 +210,7 @@ export default class Create extends React.Component {
           </select>
         </div>
         <div className='submit'>
-          <button>Create Wallet</button>
+          <button tabIndex='6'>Create Wallet</button>
         </div>
         <style jsx>{`
           .input {
