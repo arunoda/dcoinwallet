@@ -84,7 +84,7 @@ export default class Create extends React.Component {
             </select>
           </div>
           <div className="submit">
-            <input type="submit" value="Create Wallet"/>
+            <button>Create Wallet</button>
           </div>
         </form>
         <style jsx>{`
@@ -131,11 +131,21 @@ export default class Create extends React.Component {
           }
 
           .submit {
-            margin: 20px 0 0 0;
+            margin: 30px 0 0 0;
           }
 
-          .submit input {
-            font-size: 30px;
+          .submit button {
+            font-size: 18px;
+            background-color: #8BC34A;
+            border: 1px solid #689F38;
+            border-radius: 2px;
+            color: #FFF;
+            padding: 3px 15px;
+            cursor: pointer;
+          }
+
+          .submit button:hover {
+            opacity: 0.7;
           }
         `}</style>
       </div>
