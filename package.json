@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "aes-js": "^3.1.0",
+    "babel-eslint": "^7.2.3",
     "babel-preset-env": "^1.6.0",
     "bcryptjs": "^2.4.3",
     "bitcoinjs-lib": "^3.1.1",
@@ -27,6 +28,12 @@
     "babel-jest": "^20.0.3",
     "jest": "^20.0.4",
     "regenerator-runtime": "^0.10.5"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "**/node_modules/**"
+    ]
   },
   "engines": {
     "node": "8.x.x"
