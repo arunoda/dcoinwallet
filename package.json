@@ -7,7 +7,8 @@
   "scripts": {
     "lint": "standard",
     "testonly": "jest",
-    "test": "standard && jest"
+    "test": "standard && jest",
+    "dev": "next"
   },
   "dependencies": {
     "aes-js": "^3.1.0",
