@@ -5,7 +5,7 @@ import Keyfile from '../../lib/keyfile'
 describe('Keyfile', () => {
   describe('create', () => {
     it('should contain necessory fields', () => {
-      const payload = Keyfile.create('password', { keyCount: 2 })
+      const payload = Keyfile.create('name', 'password', { keyCount: 2 })
       expect(payload.meta).toEqual({
         network: 'testnet',
         allowReuse: true,
@@ -18,9 +18,18 @@ describe('Keyfile', () => {
     })
   })
 
+  describe('getName', () => {
+    it('should give the provided name of the keyfile', () => {
+      const payload = Keyfile.create('the-name', 'password', { keyCount: 2 })
+      const keyfile = Keyfile.import(payload)
+
+      expect(keyfile.getName()).toBe('the-name')
+    })
+  })
+
   describe('getAddress', () => {
     describe('with allowReuse', () => {
-      const payload = Keyfile.create('password', { keyCount: 2 })
+      const payload = Keyfile.create('name', 'password', { keyCount: 2 })
       const givenAddresses = {}
 
       it('should give all the address in a random order', () => {
@@ -34,7 +43,7 @@ describe('Keyfile', () => {
     })
 
     describe('without allowReuse', () => {
-      const payload = Keyfile.create('password', {
+      const payload = Keyfile.create('name', 'password', {
         keyCount: 2,
         allowReuse: false
       })
@@ -59,7 +68,7 @@ describe('Keyfile', () => {
   })
 
   describe('getKey', () => {
-    const payload = Keyfile.create('password', {
+    const payload = Keyfile.create('name', 'password', {
       keyCount: 2,
       allowReuse: false
     })

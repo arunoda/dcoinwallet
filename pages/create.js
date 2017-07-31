@@ -8,11 +8,17 @@ export default class Create extends React.Component {
 
   submit (e) {
     e.preventDefault()
+    const name = this.name.value
     const password = this.password.value
     const password2 = this.password2.value
     const keyCount = parseInt(this.keyCount.value)
     const network = this.network.value
     const allowReuse = this.reuseKeys.value === 'true'
+
+    if (name === '') {
+      window.alert('Enter a name for your wallet.')
+      return
+    }
 
     if (password !== password2) {
       window.alert('Both passwords are not the same.')
@@ -31,7 +37,7 @@ export default class Create extends React.Component {
 
     this.setState({ currentState: 'CREATE' }, () => {
       setTimeout(() => {
-        const payload = Keyfile.create(password, { network, keyCount, allowReuse })
+        const payload = Keyfile.create(name, password, { network, keyCount, allowReuse })
         this.setState({
           currentState: 'DOWNLOAD',
           payload
@@ -149,6 +155,18 @@ export default class Create extends React.Component {
   renderForm () {
     return (
       <form id='create-form' onSubmit={(e) => this.submit(e)}>
+        <div className='input name'>
+          <div className='label'>Name</div>
+          <div className='description'>
+            A name for this wallet.
+          </div>
+          <input
+            className='input-item'
+            type='text'
+            tabIndex='1'
+            ref={(r) => { this.name = r }}
+          />
+        </div>
         <div className='input password'>
           <div className='label'>Password</div>
           <div className='description'>
@@ -157,7 +175,7 @@ export default class Create extends React.Component {
           <input
             className='input-item'
             type='password'
-            tabIndex='1'
+            tabIndex='2'
             ref={(r) => { this.password = r }}
           />
         </div>
@@ -169,7 +187,7 @@ export default class Create extends React.Component {
           <input
             className='input-item'
             type='password'
-            tabIndex='2'
+            tabIndex='3'
             ref={(r) => { this.password2 = r }}
           />
         </div>
@@ -178,7 +196,7 @@ export default class Create extends React.Component {
           <div className='description'>Select the Bitcoin <a href='https://bitcoin.stackexchange.com/q/7908' target='_blank'>network</a> you want to use.</div>
           <select
             className='input-item'
-            tabIndex='3'
+            tabIndex='4'
             ref={(r) => { this.network = r }}
             onChange={(e) => this.networkChanged(e)}
           >
@@ -193,7 +211,7 @@ export default class Create extends React.Component {
             className='input-item'
             type='text'
             defaultValue='10'
-            tabIndex='4'
+            tabIndex='5'
             ref={(r) => { this.keyCount = r }}
           />
         </div>
@@ -202,7 +220,7 @@ export default class Create extends React.Component {
           <div className='description'>Allow to reuse addresses in different transactions. <a href='#'>Learn More</a></div>
           <select
             className='input-item'
-            tabIndex='5'
+            tabIndex='6'
             ref={(r) => { this.reuseKeys = r }}
           >
             <option value='true'>Yes</option>
@@ -210,7 +228,7 @@ export default class Create extends React.Component {
           </select>
         </div>
         <div className='submit'>
-          <button tabIndex='6'>Create Wallet</button>
+          <button tabIndex='7'>Create Wallet</button>
         </div>
         <style jsx>{`
           .input {
@@ -218,7 +236,7 @@ export default class Create extends React.Component {
           }
 
           .input .label {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             margin: 0 0 2px 0;
           }
