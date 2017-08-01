@@ -1,4 +1,7 @@
 {
+  "plugins": [
+    "root-import"
+  ],
   "env": {
     "development": {
       "presets": "next/babel"

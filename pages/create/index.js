@@ -1,7 +1,10 @@
 /* global window */
 import React from 'react'
 import Link from 'next/link'
-import Keyfile from '../lib/keyfile'
+import Keyfile from '~/lib/keyfile'
+import Layout from '~/components/Layout'
+import Button from '~/components/Button'
+import { H1, Information } from '~/components/Text'
 
 export default class Create extends React.Component {
   state = { currentState: null }
@@ -228,7 +231,7 @@ export default class Create extends React.Component {
           </select>
         </div>
         <div className='submit'>
-          <button tabIndex='7'>Create Wallet</button>
+          <Button tabIndex='7'>Create Wallet</Button>
         </div>
         <style jsx>{`
           .input {
@@ -260,20 +263,6 @@ export default class Create extends React.Component {
           .submit {
             margin: 30px 0 0 0;
           }
-
-          .submit button {
-            font-size: 18px;
-            background-color: #8BC34A;
-            border: 1px solid #689F38;
-            border-radius: 2px;
-            color: #FFF;
-            padding: 3px 15px;
-            cursor: pointer;
-          }
-
-          .submit button:hover {
-            opacity: 0.7;
-          }
         `}</style>
       </form>
     )
@@ -294,34 +283,14 @@ export default class Create extends React.Component {
 
   render () {
     return (
-      <div id='create-page'>
-        <h1>Create a Wallet</h1>
-        <div className='information'>
+      <Layout>
+        <H1>Create a Wallet</H1>
+        <Information>
           This process will create a file containing a set of Bitcoin addresses and keys. <br />
-          They are encrypted with a password you provided. <br />
-        </div>
+          They are encrypted with a password you provide. <br />
+        </Information>
         { this.renderContent() }
-        <style jsx>{`
-          #create-page {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            -webkit-font-smoothing: antialiased;
-            margin: 20px;
-            font-size: 15px;
-          }
-
-          h1 {
-            margin: 50px 0 5px 0;
-            padding: 0;
-          }
-
-          .information {
-            color: #444;
-            font-size: 15px;
-            line-height: 20px;
-            margin: 0 0 30px 0;
-          }
-        `}</style>
-      </div>
+      </Layout>
     )
   }
 }
