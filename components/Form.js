@@ -34,7 +34,7 @@ export const Description = ({ children }) => (
   </div>
 )
 
-export const Input = ({ handleRef = () => null, ...props}) => (
+export const Input = ({ handleRef = () => null, ...props }) => (
   <div>
     <input
       {...props}
@@ -65,6 +65,17 @@ export const Select = ({ options, handleRef = () => null, ...props }) => (
         margin: 5px 0 0 0;
         font-size: 15px;
         padding: 2px 5px;
+      }
+    `}</style>
+  </div>
+)
+
+export const Submit = ({ children }) => (
+  <div>
+    { children }
+    <style jsx>{`
+      div {
+        margin: 30px 0 0 0;
       }
     `}</style>
   </div>

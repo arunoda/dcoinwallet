@@ -3,12 +3,12 @@ export default (props) => (
     {props.children}
     <style jsx>{`
       button {
-        font-size: 18px;
+        font-size: 16px;
         background-color: #8BC34A;
         border: 1px solid #689F38;
         border-radius: 2px;
         color: #FFF;
-        padding: 3px 15px;
+        padding: 5px 15px;
         cursor: pointer;
       }
 

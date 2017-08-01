@@ -5,7 +5,7 @@ import Keyfile from '~/lib/keyfile'
 import Layout from '~/components/Layout'
 import Button from '~/components/Button'
 import { H1, Information } from '~/components/Text'
-import { InputField, Description, Input, Select } from '~/components/Form'
+import { InputField, Description, Input, Select, Submit } from '~/components/Form'
 
 export default class Create extends React.Component {
   state = { currentState: null }
@@ -159,7 +159,7 @@ export default class Create extends React.Component {
   renderForm () {
     return (
       <form id='create-form' onSubmit={(e) => this.submit(e)}>
-        <InputField name="Name">
+        <InputField name='Name'>
           <Description>A name for this wallet.</Description>
           <Input
             type='text'
@@ -168,7 +168,7 @@ export default class Create extends React.Component {
           />
         </InputField>
 
-        <InputField name="Password">
+        <InputField name='Password'>
           <Description>
             Make sure to create a <a href='https://howsecureismypassword.net/' target='_blank'>very secure password</a> because you keep money behind it.
           </Description>
@@ -179,7 +179,7 @@ export default class Create extends React.Component {
           />
         </InputField>
 
-        <InputField name="Re-Type Password">
+        <InputField name='Re-Type Password'>
           <Description>Make sure you typed the password correctly.</Description>
           <Input
             type='password'
@@ -188,7 +188,7 @@ export default class Create extends React.Component {
           />
         </InputField>
 
-        <InputField name="Network">
+        <InputField name='Network'>
           <Description>
             Select the Bitcoin <a href='https://bitcoin.stackexchange.com/q/7908' target='_blank'>network</a> you want to use.
           </Description>
@@ -203,7 +203,7 @@ export default class Create extends React.Component {
           />
         </InputField>
 
-        <InputField name="No. of Addresses">
+        <InputField name='No. of Addresses'>
           <Description>
             Select the number of Bitcoin addresses to create. <a href='#'>Learn more</a>
           </Description>
@@ -215,7 +215,7 @@ export default class Create extends React.Component {
           />
         </InputField>
 
-        <InputField name="Reuse Addresses">
+        <InputField name='Reuse Addresses'>
           <Description>
             Allow to reuse addresses in different transactions. <a href='#'>Learn More</a>
           </Description>
@@ -230,14 +230,9 @@ export default class Create extends React.Component {
           />
         </InputField>
 
-        <div className='submit'>
+        <Submit>
           <Button tabIndex='7'>Create Wallet</Button>
-        </div>
-        <style jsx>{`
-          .submit {
-            margin: 30px 0 0 0;
-          }
-        `}</style>
+        </Submit>
       </form>
     )
   }
