@@ -81,11 +81,12 @@ export default class Create extends React.Component {
     const { Blob, URL } = window
     const keyFileContent = JSON.stringify(payload, null, 2)
     const keyFileBlob = new Blob([keyFileContent], {type: 'application/json'})
+    const filename = `${payload.name.toLowerCase().replace(/ /g, '-')}-keyfile.json`
 
     return (
       <div>
         <div className='download'>
-          <a href={URL.createObjectURL(keyFileBlob)} download='keyfile.json'>Click here</a> to download the keyfile for your wallet.
+          <a href={URL.createObjectURL(keyFileBlob)} download={filename}>Click here</a> to download the keyfile for your wallet.
         </div>
         <div className='warning'>
           This <b>keyfile</b> and the <b>password</b> is the key to your wallet. <br />
