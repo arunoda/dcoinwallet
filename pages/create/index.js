@@ -5,6 +5,7 @@ import Keyfile from '~/lib/keyfile'
 import Layout from '~/components/Layout'
 import Button from '~/components/Button'
 import { H1, Information } from '~/components/Text'
+import { InputField, Description, Input, Select } from '~/components/Form'
 
 export default class Create extends React.Component {
   state = { currentState: null }
@@ -158,108 +159,81 @@ export default class Create extends React.Component {
   renderForm () {
     return (
       <form id='create-form' onSubmit={(e) => this.submit(e)}>
-        <div className='input name'>
-          <div className='label'>Name</div>
-          <div className='description'>
-            A name for this wallet.
-          </div>
-          <input
-            className='input-item'
+        <InputField name="Name">
+          <Description>A name for this wallet.</Description>
+          <Input
             type='text'
             tabIndex='1'
-            ref={(r) => { this.name = r }}
+            handleRef={(r) => { this.name = r }}
           />
-        </div>
-        <div className='input password'>
-          <div className='label'>Password</div>
-          <div className='description'>
+        </InputField>
+
+        <InputField name="Password">
+          <Description>
             Make sure to create a <a href='https://howsecureismypassword.net/' target='_blank'>very secure password</a> because you keep money behind it.
-          </div>
-          <input
-            className='input-item'
+          </Description>
+          <Input
             type='password'
             tabIndex='2'
-            ref={(r) => { this.password = r }}
+            handleRef={(r) => { this.password = r }}
           />
-        </div>
-        <div className='input password2'>
-          <div className='label'>Re-Type Password</div>
-          <div className='description'>
-            Make sure you typed the password correctly.
-          </div>
-          <input
-            className='input-item'
+        </InputField>
+
+        <InputField name="Re-Type Password">
+          <Description>Make sure you typed the password correctly.</Description>
+          <Input
             type='password'
             tabIndex='3'
-            ref={(r) => { this.password2 = r }}
+            handleRef={(r) => { this.password2 = r }}
           />
-        </div>
-        <div className='input network'>
-          <div className='label'>Network</div>
-          <div className='description'>Select the Bitcoin <a href='https://bitcoin.stackexchange.com/q/7908' target='_blank'>network</a> you want to use.</div>
-          <select
-            className='input-item'
+        </InputField>
+
+        <InputField name="Network">
+          <Description>
+            Select the Bitcoin <a href='https://bitcoin.stackexchange.com/q/7908' target='_blank'>network</a> you want to use.
+          </Description>
+          <Select
             tabIndex='4'
-            ref={(r) => { this.network = r }}
+            handleRef={(r) => { this.network = r }}
             onChange={(e) => this.networkChanged(e)}
-          >
-            <option value='testnet'>Bitcoin Testnet</option>
-            <option value='bitcoin'>Bitcoin</option>
-          </select>
-        </div>
-        <div className='input keycount'>
-          <div className='label'>No. of Addresses</div>
-          <div className='description'>Select the number of Bitcoin addresses to create. <a href='#'>Learn more</a></div>
-          <input
-            className='input-item'
+            options={{
+              testnet: 'Bitcoin Testnet',
+              bitcoin: 'Bitcoin'
+            }}
+          />
+        </InputField>
+
+        <InputField name="No. of Addresses">
+          <Description>
+            Select the number of Bitcoin addresses to create. <a href='#'>Learn more</a>
+          </Description>
+          <Input
             type='text'
             defaultValue='10'
             tabIndex='5'
-            ref={(r) => { this.keyCount = r }}
+            handleRef={(r) => { this.keyCount = r }}
           />
-        </div>
-        <div className='input reuse-keys'>
-          <div className='label'>Reuse Addresses</div>
-          <div className='description'>Allow to reuse addresses in different transactions. <a href='#'>Learn More</a></div>
-          <select
-            className='input-item'
+        </InputField>
+
+        <InputField name="Reuse Addresses">
+          <Description>
+            Allow to reuse addresses in different transactions. <a href='#'>Learn More</a>
+          </Description>
+          <Select
             tabIndex='6'
-            ref={(r) => { this.reuseKeys = r }}
-          >
-            <option value='true'>Yes</option>
-            <option value='false'>No</option>
-          </select>
-        </div>
+            handleRef={(r) => { this.reuseKeys = r }}
+            onChange={(e) => this.networkChanged(e)}
+            options={{
+              'true': 'Yes',
+              'false': 'No'
+            }}
+          />
+        </InputField>
+
         <div className='submit'>
           <Button tabIndex='7'>Create Wallet</Button>
         </div>
         <style jsx>{`
-          .input {
-            margin: 10px 0;
-          }
-
-          .input .label {
-            font-size: 16px;
-            font-weight: 600;
-            margin: 0 0 2px 0;
-          }
-
-          .input .input-item {
-            margin: 5px 0 0 0;
-            font-size: 15px;
-            padding: 2px 5px;
-          }
-
-          .input .description {
-            font-size: 13px;
-            color: #666;
-          }
-
-          .input .description a {
-            color: #2196F3;
-            text-decoration: none;
-          }
-
           .submit {
             margin: 30px 0 0 0;
           }
