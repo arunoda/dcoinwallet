@@ -1,6 +1,7 @@
 /* global window */
 import React from 'react'
 import Link from 'next/link'
+import Router from 'next/router'
 import Keyfile from '~/lib/keyfile'
 import Layout from '~/components/Layout'
 import Button from '~/components/Button'
@@ -43,11 +44,21 @@ export default class Create extends React.Component {
       setTimeout(() => {
         const payload = Keyfile.create(name, password, { network, keyCount, allowReuse })
         this.setState({
-          currentState: 'DOWNLOAD',
+          currentState: 'WARNING',
           payload
         })
       }, 1000)
     })
+  }
+
+  showDownload () {
+    this.setState({ currentState: 'DOWNLOAD' })
+  }
+
+  redirectToLogin () {
+    setTimeout(() => {
+      Router.push('/login')
+    }, 1000)
   }
 
   networkChanged () {
@@ -86,21 +97,13 @@ export default class Create extends React.Component {
     return (
       <div>
         <div className='download'>
-          <a href={URL.createObjectURL(keyFileBlob)} download={filename}>Click here</a> to download the keyfile for your wallet.
+          <a
+            onClick={(e) => this.redirectToLogin(e)}
+            href={URL.createObjectURL(keyFileBlob)}
+            download={filename}>Click here</a> to download the keyfile for your wallet. <br />
         </div>
-        <div className='warning'>
-          This <b>keyfile</b> and the <b>password</b> is the key to your wallet. <br />
-          Make sure to keep them <b>safe</b> and <b>recoverable</b>. <br />
-          There's no way to <b>recover</b> or <b>reset</b>.
-        </div>
-        <div className='next'>
-          <h3>What Next?</h3>
-          <div className='link'>
-            <Link href='/login'><a>Login to your Wallet</a></Link>
-          </div>
-          <div className='link'>
-            <Link href='/'><a>Go Home</a></Link>
-          </div>
+        <div className='redirect-info'>
+          (After the download, you'll be redirected to the login page.)
         </div>
         <style jsx>{`
           a {
@@ -111,9 +114,9 @@ export default class Create extends React.Component {
 
           .download {
             padding: 10px;
-            border: 2px solid #388E3C;
+            border: 1px solid #388E3C;
             max-width: 550px;
-            background-color: #4CAF50;
+            background-color: #8BC34A;
             color: #FFF;
           }
 
@@ -123,34 +126,9 @@ export default class Create extends React.Component {
             border-bottom: 1px solid #FFF;
           }
 
-          .warning {
-            max-width: 550px;
-            margin: 30px 0 0 0;
-            border: 2px solid #FF9800;
-            background-color: #FFECB3;
-            padding: 10px;
+          .redirect-info {
             font-size: 13px;
-          }
-
-          .next {
-            margin: 30px 0 0 0;
-          }
-
-          .next h3 {
-            font-size: 18px;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 0;
-            margin: 0 0 10px 0;
-          }
-
-          .next a {
-            border-bottom: 0;
-          }
-
-          .next .link {
-            margin: 5px 0;
+            margin: 10px 0;
           }
         `}</style>
       </div>
@@ -238,12 +216,58 @@ export default class Create extends React.Component {
     )
   }
 
+  renderWarning () {
+    return (
+      <div>
+        <div className='content'>
+          <h2>WARNING</h2>
+          <div className='details'>
+            Your <b>keyfile</b> and <b>password</b> is the only entry to your wallet.<br />
+            Follow these steps for the better security:
+          </div>
+          <ul>
+            <li>Always use the wallet at <a href='https://dcoinwallet.com' target='_blank'>https://dcoinwallet.com</a>.</li>
+            <li>Save the keyfile in a secure location.</li>
+            <li>Better if you keep it in a USB drive.</li>
+            <li>Use a long and secure password. If not, go <Link href='/create'><a>back</a></Link>.</li>
+            <li>There is no recovery or reset process.</li>
+            <li>As a recovery method, put the keyfile USB drive and the password (written in a paper) inside two different physical safes.</li>
+          </ul>
+        </div>
+        <Submit>
+          <Button onClick={() => this.showDownload()}>Yes, I Got It</Button>
+        </Submit>
+        <style jsx>{`
+          h2 {
+            font-weight: 400;
+            font-size: 25px;
+            letter-spacing: 2px;
+            color: #E91E63;
+          }
+
+          .content {
+            max-width: 550px;
+            line-height: 25px;
+          }
+
+          .content a {
+            color: #2196F3;
+            text-decoration: none;
+            border-bottom: 1px solid #2196F3;
+          }
+        `}</style>
+      </div>
+    )
+  }
+
   renderContent () {
     const { currentState } = this.state
 
     switch (currentState) {
       case 'CREATE':
         return this.renderLoading()
+      case 'WARNING':
+        return this.renderWarning()
       case 'DOWNLOAD':
         return this.renderDownload()
       default:

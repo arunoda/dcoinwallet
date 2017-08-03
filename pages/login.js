@@ -125,16 +125,16 @@ export default class Login extends React.Component {
           <Button onClick={() => this.reset()}>Login Again</Button>
         </Submit>
         <style jsx>{`
-          .error-box {
-            padding: 10px;
-            max-width: 550px;
-            background-color: #FFEBEE;
-            border: 2px solid #FF5722;
+          .title {
+            font-weight: 400;
+            font-size: 25px;
+            letter-spacing: 2px;
+            color: #E91E63;
           }
 
-          .title {
-            font-size: 18px;
-            margin: 0 0 10px 0;
+          .message {
+            margin: 5px 0;
+            font-size: 16px;
           }
         `}</style>
       </div>
