@@ -1,6 +1,6 @@
 /* global describe, it, expect */
 
-import Notebook from '../../lib/notebook'
+import { Notebook } from '../../lib/notebook'
 
 describe('Notebook', () => {
   describe('items', () => {

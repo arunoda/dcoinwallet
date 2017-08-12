@@ -7,6 +7,7 @@ import { H1, Information } from '~/components/Text'
 import { InputField, Description, Input, Submit } from '~/components/Form'
 import Button from '~/components/Button'
 import Keyfile from '~/lib/keyfile'
+import notebook from '~/lib/notebook'
 
 export default class Login extends React.Component {
   state = { currentState: null }
@@ -59,7 +60,7 @@ export default class Login extends React.Component {
         // An error will be thrown if the password is incorrect.
         keyfile.getKey(password, address)
 
-        // TODO: Save the keyfile
+        notebook.setKeyfile(keyfile)
         Router.push('/wallet')
       })
       .catch((error) => {
