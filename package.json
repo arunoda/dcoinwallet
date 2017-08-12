@@ -23,7 +23,8 @@
     "randombytes": "^2.0.5",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "standard": "^10.0.2"
+    "standard": "^10.0.2",
+    "vm-browserify": "^0.0.4"
   },
   "devDependencies": {
     "babel-jest": "^20.0.3",
