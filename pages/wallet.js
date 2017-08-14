@@ -5,7 +5,24 @@ import notebook from '~/lib/notebook'
 import Items from '~/components/wallet/Items'
 
 export default class Wallet extends React.Component {
-  state = { error: null }
+  state = { error: null, currentState: null }
+
+  componentDidMount () {
+    if (!notebook.keyfile) {
+      this.setState({ currentState: 'NO_KEYFILE' })
+      return
+    }
+
+    this.setState({ currentState: 'SYNC' })
+    notebook.blockchain.sync()
+      .then(() => {
+        notebook.blockchain.buildCoins()
+        this.setState({ currentState: 'READY' })
+      })
+      .catch((error) => {
+        this.setState({ currentState: 'ERROR', error })
+      })
+  }
 
   onShellKeyEnter (e) {
     // Make sure to clear errors for any keystroke
@@ -31,11 +48,11 @@ export default class Wallet extends React.Component {
       })
   }
 
-  render () {
+  renderPaper () {
     const { error } = this.state
 
     return (
-      <Layout>
+      <div>
         <div className='paper'>
           <div className='information' />
           <div className='items'>
@@ -77,6 +94,39 @@ export default class Wallet extends React.Component {
             color: red;
           }
         `}</style>
+      </div>
+    )
+  }
+
+  renderError () {
+    const { error } = this.state
+    return (
+      <div>
+        <h3>Error</h3>
+        <p>{error.message}</p>
+      </div>
+    )
+  }
+
+  getContent () {
+    const { currentState } = this.state
+
+    switch (currentState) {
+      case 'NO_KEYFILE':
+        return (<div>No Keyfile Found!</div>)
+      case 'SYNC':
+        return (<div>Syncing</div>)
+      case 'ERROR':
+        return this.renderError()
+      case 'READY':
+        return this.renderPaper()
+    }
+  }
+
+  render () {
+    return (
+      <Layout>
+        { this.getContent() }
       </Layout>
     )
   }

@@ -7,8 +7,12 @@ describe('Blockchain', () => {
     it('should get transactions for a given address', async () => {
       const chain = new Blockchain('testnet', [])
       const transactions = await chain.fetchTransaction('mgAdp2rShLktCWw2cNELyGBaWqu2Ms1G3u')
+      const tx = transactions[0]
 
-      expect(transactions[0]).toEqual({
+      expect(tx.confirmations > 0).toBe(true)
+      delete tx.confirmations
+
+      expect(tx).toEqual({
         hash: 'df08e105021fdaf3e2f7859a2af7f45cfe1816b4d685125f3c56b2ff7af195b7',
         block: {
           hash: '000000000000364426dd97b1930093c94625844de9e311260ccdb60c96fee7c0',
