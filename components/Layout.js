@@ -7,6 +7,14 @@ export default ({ children }) => (
         -webkit-font-smoothing: antialiased;
         padding: 20px;
         font-size: 15px;
+        border-top: 3px solid #8BC34A;
+      }
+    `}</style>
+
+    <style jsx global>{`
+      body {
+        margin: 0;
+        padding: 0;
       }
     `}</style>
   </div>

@@ -2,6 +2,8 @@ import React from 'react'
 import Layout from '~/components/Layout'
 import notebook from '~/lib/notebook'
 
+import Items from '~/components/wallet/Items'
+
 export default class Wallet extends React.Component {
   state = { error: null }
 
@@ -17,6 +19,13 @@ export default class Wallet extends React.Component {
     const code = this.shell.value
     this.shell.value = ''
     notebook.run(code)
+      .then((result) => {
+        notebook.addItem({
+          type: 'code',
+          code,
+          result
+        })
+      })
       .catch((error) => {
         this.setState({ error })
       })
@@ -29,7 +38,9 @@ export default class Wallet extends React.Component {
       <Layout>
         <div className='paper'>
           <div className='information' />
-          <div className='items' />
+          <div className='items'>
+            <Items notebook={notebook} />
+          </div>
           <div className='shell'>
             {error ? (<div className='error'>{error.message}</div>) : null}
             <textarea
