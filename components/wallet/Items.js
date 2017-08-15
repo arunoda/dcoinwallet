@@ -22,6 +22,8 @@ export default class Items extends React.Component {
 
   render () {
     const { items } = this.state
+    const { notebook } = this.props
+
     return (
       <div>
         { items.map((item, index) => {
@@ -29,7 +31,7 @@ export default class Items extends React.Component {
           if (!Module) {
             throw new Error(`Incorrect item type: ${item.type}`)
           }
-          return (<Module key={index} data={item} />)
+          return (<Module key={index} data={item} notebook={notebook} />)
         }) }
       </div>
     )
