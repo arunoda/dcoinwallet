@@ -11,4 +11,13 @@ module.exports = {
     })
     return cfg
   },
+
+  exportPathMap: function () {
+    return {
+      '/': { page: '/' },
+      '/login': { page: '/login' },
+      '/create': { page: '/create' },
+      '/wallet': { page: '/login' }
+    }
+  }
 }

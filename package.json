@@ -10,7 +10,7 @@
     "test": "standard && jest",
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "export": "next export"
   },
   "dependencies": {
     "aes-js": "^3.1.0",
@@ -21,7 +21,7 @@
     "bitcoinjs-lib": "^3.1.1",
     "create-hmac": "^1.1.6",
     "isomorphic-unfetch": "^2.0.0",
-    "next": "^2.4.7",
+    "next": "^3.0.3",
     "randombytes": "^2.0.5",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
