@@ -8,7 +8,9 @@
     "lint": "standard",
     "testonly": "jest",
     "test": "standard && jest",
-    "dev": "next"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "aes-js": "^3.1.0",
