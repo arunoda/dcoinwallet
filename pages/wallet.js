@@ -14,9 +14,8 @@ export default class Wallet extends React.Component {
     }
 
     this.setState({ currentState: 'SYNC' })
-    notebook.blockchain.sync()
+    notebook.sync()
       .then(() => {
-        notebook.blockchain.buildCoins()
         this.setState({ currentState: 'READY' })
       })
       .catch((error) => {
