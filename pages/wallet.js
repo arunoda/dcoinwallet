@@ -73,7 +73,7 @@ export default class Wallet extends React.Component {
 
           .shell textarea {
             display: block;
-            width: 100%;
+            width: 630px;
             height: 18px;
             font-size: 14px;
             padding: 10px;

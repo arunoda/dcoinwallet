@@ -26,6 +26,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "standard": "^10.0.2",
+    "unfetch": "^3.0.0",
     "vm-browserify": "^0.0.4"
   },
   "devDependencies": {
